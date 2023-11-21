@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-data structure for RECORD,
-use json format
-automatically load and save file on workdir
-"""
 import os
 import json
 import time
 
 
-WORK_DIR = r'C:\BruceWorkSpace\AttentionbasedProjectManagement\DATA'
+WORK_DIR = r'C:\Users\Bruce\Desktop\AttentionbasedProjectManagement\DATA'
 
 """
 to recover file in case of wrong operation
@@ -112,7 +107,7 @@ def _get_time_string_now():
     return time_string
 
 
-def show_submit_template():
+def show_record_template():
     print('{')
     for k, v in BasicRECORD().__dict__.items():
         if k != 'id':
@@ -216,7 +211,7 @@ class RECORDManager(object):
         self.delete_id = self.meta['delete_record_id']
         print('renew meta')
 
-    def add_submit(self, submit_info: dict):
+    def add_record(self, submit_info: dict):
         if _format_check(submit_info):
             new_record = BasicRECORD()
             temp_id = str(int(self.max_file_id) + 1)
