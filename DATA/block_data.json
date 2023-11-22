@@ -1,3 +1,25 @@
 {
-    "0": {}
+    "0": {},
+    "1": {
+        "doc_outline": "Attetnion based ProjectManagement project",
+        "doc_file": "||description-->基于注意力的时间管理项目，项目文档在飞书个人账号上||"
+    },
+    "2": {
+        "goal": "完善一下AttentionProjectMangement的文档当前已有的进展",
+        "methods": "重写文档部分，不必要的内容全部删除,添加新的API: 任意修改已经提交的block",
+        "feedback": "",
+        "related_file": "||description-->项目文档在飞书个人账号上||"
+    },
+    "3": {
+        "goal": "学习GUI的基础知识",
+        "methods": "在网上找一下新的基于pyqt5的学习资料，学习目标是可以通过QT-desiger完成界面设计，然后搞清楚怎将后端和前端连接起来，还需要设计一个控制器，来对接当前的APIs和GUI应用对象",
+        "feedback": "",
+        "related_file": "||description-->项目文档在飞书个人账号上||"
+    },
+    "4": {
+        "goal": "python程序兼容pyqt5的打包方法，把项目打包成可以用的exe文件",
+        "methods": "求助网络",
+        "feedback": "",
+        "related_file": "||description-->项目文档在飞书个人账号上||"
+    }
 }

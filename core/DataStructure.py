@@ -427,6 +427,3 @@ def _reset_system():
 
         print('!!! system reset !!!')
 
-
-if __name__ == '__main__':
-    _reset_system()
