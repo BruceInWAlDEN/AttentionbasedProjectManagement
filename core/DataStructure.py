@@ -56,6 +56,14 @@ def decode_time_string(time_string):
     return year, month, day
 
 
+def decoder_file_string(file_string):
+    # "||file_full_path-->init||url-->init||description-->init||"
+    files = file_string.split('||')
+    files = [_.replace('file_full_path-->', '').replace('url-->', '').replace('description-->', '') for _ in files if _]
+
+    return files
+
+
 def get_file_string(file_type, content):
 
     return file_type + "-->" + content
@@ -75,9 +83,8 @@ class BasicBlock(object):
     def get_template(self):
         print('{')
         for k, v in self.__dict__.items():
-            if k != 'ID' and k != 'submit_time' and k != 'block_type':
-                v = "\"" + v + "\"" if isinstance(v, str) else str(v)
-                print("\t" + "\"" + k + "\"" + ": " + v + ",")
+            v = "\"" + v + "\"" if isinstance(v, str) else str(v)
+            print("\t" + "\"" + k + "\"" + ": " + v + ",")
         print('}')
 
     def get_json_dict(self):
@@ -134,15 +141,15 @@ class DOCUMENT(BasicBlock):
 class ACTION(BasicBlock):
     def __init__(self):
         super().__init__()
+        self.goal = "a result"
+        self.methods = "detailed"
+        self.feedback = "statement but feeling"
+
         self.related_file = get_file_string_list([
             get_file_string('file_full_path', 'init'),
             get_file_string('url', 'init'),
             get_file_string('description', 'init'),
         ])
-
-        self.goal = "a result"
-        self.methods = "detailed"
-        self.feedback = "statement but feeling"
 
 
 class RECORD(BasicBlock):
@@ -172,21 +179,15 @@ def save_json(dict_dataset: dict, name: str):
         f.write(json.dumps(dict_dataset, ensure_ascii=False, indent=4))
 
 
-def get_temp_late(block_type=None):
-    if block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
-        block = eval(block_type + "()")
-        block.get_template()
-    else:
-        print('wrong block type: ', block_type)
-
 """
 every call of follow func, file should renew and show sign
+*init.json files give an example for each kind of file
 """
 MAIN_WORK_DIR = r'C:\Users\Bruce\Desktop\AttentionbasedProjectManagement\DATA'
-FILE_DATA_RELATION_MATRIX = 'data_relation_matrix.json'     # [[0/1]]
-FILE_DATA_ID_LIST = 'data_id_list.json'     # [""]
-FILE_BLOCK_DATA = 'block_data.json'     # {"": {}}
-FILE_META = 'meta.json'     # {"": }
+FILE_DATA_RELATION_MATRIX = 'data_relation_matrix.json'
+FILE_DATA_ID_LIST = 'data_id_list.json'
+FILE_BLOCK_DATA = 'block_data.json'
+FILE_META = 'meta.json'
 
 
 class FileManager(object):
@@ -208,37 +209,61 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
     all_id = []
     fm = FileManager()
     if block_id is not None and block_id not in fm.FILE_META['delete_id']:
+        re = fm.FILE_BLOCK_DATA[block_id]
+        re['block_type'] = fm.FILE_META['submit_type'][block_id]
+        re['block_id'] = block_id
+        re['submit_time'] = fm.FILE_META['submit_time'][block_id]
+
         return [fm.FILE_BLOCK_DATA[block_id]]
+
     if block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
         for check_id in fm.FILE_META['submit_type_id_statistic'][block_type]:
-            check_year, check_month, check_day = decode_time_string(fm.FILE_BLOCK_DATA[check_id]['submit_time'])
+            check_year, check_month, check_day = decode_time_string(fm.FILE_META['submit_time'][check_id])
             flag = 1
-            if not check_year == year or year is None:
+            if (not check_year == year) and year is not None:
                 flag = 0
-            if not check_month == month or month is None:
+            if (not check_month == month) and month is not None:
                 flag = 0
-            if not check_day == day or day is None:
+            if (not check_day == day) and day is not None:
                 flag = 0
             if flag:
                 all_id.append(check_id)
         all_id = [_ for _ in all_id if _ not in fm.FILE_META['delete_id']]
-        return [fm.FILE_BLOCK_DATA[_] for _ in all_id]
+
+        all_json_dict = []
+        for check_id in all_id:
+            re = fm.FILE_BLOCK_DATA[check_id]
+            re['block_type'] = fm.FILE_META['submit_type'][check_id]
+            re['block_id'] = check_id
+            re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            all_json_dict.append(re)
+
+        return all_json_dict
 
     if block_type is None:
         for block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
             for check_id in fm.FILE_META['submit_type_id_statistic'][block_type]:
-                check_year, check_month, check_day = decode_time_string(fm.FILE_BLOCK_DATA[check_id]['submit_time'])
+                check_year, check_month, check_day = decode_time_string(fm.FILE_META['submit_time'][check_id])
                 flag = 1
-                if not check_year == year or year is None:
+                if (not check_year == year) and year is not None:
                     flag = 0
-                if not check_month == month or month is None:
+                if (not check_month == month) and month is not None:
                     flag = 0
-                if not check_day == day or day is None:
+                if (not check_day == day) and day is not None:
                     flag = 0
                 if flag:
                     all_id.append(check_id)
         all_id = [_ for _ in all_id if _ not in fm.FILE_META['delete_id']]
-        return [fm.FILE_BLOCK_DATA[_] for _ in all_id]
+
+        all_json_dict = []
+        for check_id in all_id:
+            re = fm.FILE_BLOCK_DATA[check_id]
+            re['block_type'] = fm.FILE_META['submit_type'][check_id]
+            re['block_id'] = check_id
+            re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            all_json_dict.append(re)
+
+        return all_json_dict
 
 
 def overwrite_block(block_type, json_dict, block_id: str):
@@ -276,6 +301,7 @@ def write_record(json_dict=None, document_id=None, action_id=None):
             temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
             fm.FILE_BLOCK_DATA[temp_id] = json_dict
             fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
+            fm.FILE_META['submit_type'][temp_id] = "RECORD"
 
             # add relation
             fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -314,6 +340,7 @@ def write_action(json_dict, document_id):
             temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
             fm.FILE_BLOCK_DATA[temp_id] = json_dict
             fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
+            fm.FILE_META['submit_type'][temp_id] = "ACTION"
 
             # add relation
             fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -348,6 +375,7 @@ def write_document(json_dict):
         temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
         fm.FILE_BLOCK_DATA[temp_id] = json_dict
         fm.FILE_META["submit_time"][temp_id] = get_time_string_now()
+        fm.FILE_META['submit_type'][temp_id] = "DOCUMENT"
 
         # add relation
         fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -378,18 +406,4 @@ def delete_block(block_type, block_id: str):
         fm.renew_data()
     else:
         print('block_id do not exist or already deleted')
-
-
-def show_simple():
-    fm = FileManager()
-    document_ids = fm.FILE_META['submit_type_id_statistic']['DOCUMENT']
-    for document_id in document_ids:
-        print('->', document_id)
-        index = fm.FILE_DATA_ID_LIST['id_list'].index(document_id)
-        for block_index, connect in enumerate(fm.FILE_DATA_RELATION_MATRIX["relation_matrix"][index]):
-            if connect and block_index != 0:
-                print(' ->', fm.FILE_DATA_ID_LIST['id_list'][block_index])
-                for block_index_, connect_ in enumerate(fm.FILE_DATA_RELATION_MATRIX["relation_matrix"][block_index]):
-                    if connect_ and block_index_ != block_index and block_index_ != index:
-                        print('    ->', fm.FILE_DATA_ID_LIST['id_list'][block_index_])
 
