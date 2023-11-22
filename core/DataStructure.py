@@ -407,3 +407,26 @@ def delete_block(block_type, block_id: str):
     else:
         print('block_id do not exist or already deleted')
 
+
+"""
+!!!!! WARNING:  following func will reset all data
+"""
+
+
+def _reset_system():
+    out = input('if you want to reset the whole system ? you can input: $i$really$want$to$do$that$')
+    if out == '$i$really$want$to$do$that$':
+        r = read_json(os.path.join(MAIN_WORK_DIR, FILE_DATA_RELATION_MATRIX.replace('.json', '_init.json')))
+        save_json(r, os.path.join(MAIN_WORK_DIR, FILE_DATA_RELATION_MATRIX))
+        r = read_json(os.path.join(MAIN_WORK_DIR, FILE_DATA_ID_LIST.replace('.json', '_init.json')))
+        save_json(r, os.path.join(MAIN_WORK_DIR, FILE_DATA_ID_LIST))
+        r = read_json(os.path.join(MAIN_WORK_DIR, FILE_BLOCK_DATA.replace('.json', '_init.json')))
+        save_json(r, os.path.join(MAIN_WORK_DIR, FILE_BLOCK_DATA))
+        r = read_json(os.path.join(MAIN_WORK_DIR, FILE_META.replace('.json', '_init.json')))
+        save_json(r, os.path.join(MAIN_WORK_DIR, FILE_META))
+
+        print('!!! system reset !!!')
+
+
+if __name__ == '__main__':
+    _reset_system()

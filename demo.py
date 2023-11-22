@@ -7,9 +7,9 @@ from core.APIs import *
 
 
 if __name__ == "__main__":
-    get_template("D")
-    get_template("R")
-    get_template("A")
+    # get_template("D")
+    # get_template("R")
+    # get_template("A")
     # submit("D", {
     #     "doc_outline": "a program for attetnionbasedProjectManagement project",
     #     "doc_file": "||file_full_path-->init||url-->init||description-->init||",
@@ -45,6 +45,7 @@ if __name__ == "__main__":
     #     "attention_description": "feeling and reason",
     #     "work_env_description": "objective",
     # }, document_id="1")
-    show_content()
+    # show_content(block_id='1')
+    pass
 
 

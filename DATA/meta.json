@@ -1,15 +1,8 @@
 {
     "submit_type_id_statistic": {
-        "RECORD": [
-            "3",
-            "4"
-        ],
-        "DOCUMENT": [
-            "1"
-        ],
-        "ACTION": [
-            "2"
-        ],
+        "RECORD": [],
+        "DOCUMENT": [],
+        "ACTION": [],
         "ROOT": [
             "0"
         ]
@@ -18,24 +11,9 @@
         "0"
     ],
     "all_id": [
-        "0",
-        "1",
-        "2",
-        "3",
-        "4"
+        "0"
     ],
     "submit_time": {
-        "0": "",
-        "1": "year:2023||month:11||day:22||hour:17||minute:4||second:56",
-        "2": "year:2023||month:11||day:22||hour:17||minute:6||second:5",
-        "3": "year:2023||month:11||day:22||hour:17||minute:7||second:16",
-        "4": "year:2023||month:11||day:22||hour:17||minute:7||second:39"
-    },
-    "submit_type": {
-        "0": "",
-        "1": "DOCUMENT",
-        "2": "ACTION",
-        "3": "RECORD",
-        "4": "RECORD"
+        "0": ""
     }
 }
