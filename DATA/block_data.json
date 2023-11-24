@@ -21,5 +21,101 @@
         "methods": "求助网络",
         "feedback": "",
         "related_file": "||description-->项目文档在飞书个人账号上||"
+    },
+    "5": {
+        "doc_outline": "23年11月23日到12月底健身计划",
+        "doc_file": "||file_full_path-->C:\\BruceMySpace\\_data\\11月23日到12月健身计划.txt||"
+    },
+    "6": {
+        "goal": "设计具体的健身计划",
+        "methods": "求助网络",
+        "feedback": "",
+        "related_file": "||file_full_path-->C:\\BruceMySpace\\_data\\11月23日到12月健身计划.txt||"
+    },
+    "7": {
+        "goal": "执行既定的健身计划",
+        "methods": "按照计划执行即可",
+        "feedback": "",
+        "related_file": "||file_full_path-->C:\\BruceMySpace\\_data\\11月23日到12月健身计划.txt||"
+    },
+    "8": {
+        "doc_outline": "小显微镜项目在这里的锚点",
+        "doc_file": "||description-->小显微镜项目的具体内容见飞书，这里只是为了方便实用record的一个锚点||"
+    },
+    "9": {
+        "goal": "记录小显微镜从23年11月23日开始的record",
+        "methods": "所有record记录在当前ACTION下面",
+        "feedback": "",
+        "related_file": "||description-->记录小显微镜上使用的record,小显微镜项目不按照当前系统来管理||"
+    },
+    "10": {
+        "doc_outline": "硕士毕业论文",
+        "doc_file": "||file_full_path-->C:\\BruceMySpace\\_data\\硕士毕业论文相关.docx||"
+    },
+    "11": {
+        "start_time": "year:2023||month:11||day:23||hour:14||minute:21||second:51",
+        "end_time": "year:2023||month:11||day:23||hour:16||minute:04||second:0",
+        "start_passion_score": 4,
+        "end_feeling_score": 4,
+        "attention_score": 4,
+        "passion_description": "下午刚开始工作,并且决定晚上不来了，下午一股作气把钱的硕士论文好好读一下",
+        "feeling_description": "中文资料比较友好，中间向光学的同学请假了一些问题",
+        "attention_description": "没有什么干扰，也没分心",
+        "work_env_description": "实验室安静的下午"
+    },
+    "12": {
+        "start_time": "year:2023||month:11||day:23||hour:16||minute:14||second:59",
+        "end_time": "year:2023||month:11||day:23||hour:16||minute:50||second:59",
+        "start_passion_score": 3,
+        "end_feeling_score": 3,
+        "attention_score": 3,
+        "passion_description": "昨天没有睡好，中午没有睡够，感觉下午的工作时间还有很久，继续",
+        "feeling_description": "感觉收获感不强",
+        "attention_description": "后半段明显感觉注意力不能很好的集中，再加上在听音乐",
+        "work_env_description": "实验室下午，戴耳机听歌"
+    },
+    "13": {
+        "start_time": "year:2023||month:11||day:24||hour:8||minute:43||second:47",
+        "end_time": "year:2023||month:11||day:24||hour:10||minute:25||second:47",
+        "start_passion_score": 5,
+        "end_feeling_score": 3,
+        "attention_score": 2,
+        "passion_description": "最近在调整作息，早上醒来，感觉没有休息好，身体很累，肩膀很重",
+        "feeling_description": "感觉没有太大产出",
+        "attention_description": "中间很困，睡了一下会，状态也不好",
+        "work_env_description": "实验室上午",
+        "start_passion_socre": 3
+    },
+    "14": {
+        "doc_outline": "一种基于人反馈的数据集分解方法",
+        "doc_file": "||description-->文档在飞书个人账号上||"
+    },
+    "15": {
+        "goal": "完成给定图片数据中心进行一次训练的过程",
+        "methods": "训练过程写成函数式编程的方法，训练函数输入参数为训练的数据中心，以及模型对象，输出训练好的模型",
+        "feedback": "statement but feeling",
+        "related_file": "项目代码"
+    },
+    "16": {
+        "start_time": "year:2023||month:11||day:24||hour:15||minute:33||second:25",
+        "end_time": "year:2023||month:11||day:24||hour:17||minute:11||second:25",
+        "start_passion_score": 4,
+        "end_feeling_score": 4,
+        "attention_score": 4,
+        "passion_description": "中午迟到睡了一个好的午觉",
+        "feeling_description": "感觉有一些产出",
+        "attention_description": "基本没有什么干扰，中间没有做其他的事情",
+        "work_env_description": "实验室下午"
+    },
+    "17": {
+        "start_time": "year:2023||month:11||day:24||hour:18||minute:43||second:3",
+        "end_time": "year:2023||month:11||day:24||hour:19||minute:57||second:3",
+        "start_passion_score": 3,
+        "end_feeling_score": 4,
+        "attention_score": 4,
+        "passion_description": "刚吃完晚饭回到实验室，感觉很疲倦，实际上，决定再工作一小会就走",
+        "feeling_description": "意外地进入状态了，有产出",
+        "attention_description": "注意力很集中，因为一直在想象一个数据结构",
+        "work_env_description": "实验室晚上，很安静"
     }
 }

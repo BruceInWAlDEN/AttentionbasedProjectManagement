@@ -87,6 +87,8 @@ class BasicBlock(object):
             print("\t" + "\"" + k + "\"" + ": " + v + ",")
         print('}')
 
+        return self.__dict__
+
     def get_json_dict(self):
         return {k: v for k, v in self.__dict__.items() if k != 'ID' and k != "submit_time"}
 

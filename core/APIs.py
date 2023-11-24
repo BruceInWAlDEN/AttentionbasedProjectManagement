@@ -1,14 +1,4 @@
 # -*- coding:utf-8 -*-
-"""
-def
-    show_content(type, id, name, year, month, day)
-    get_template(type)
-    get_file_strings(file_type, content)
-    submit(type, json_dict)
-    statistic_time_on(type, id_list)
-    statistic_time_between(start_year, start_month, start_day, end_year, end_month, end_day)
-    show_relation_tree()
-"""
 from core.DataStructure import *
 
 
@@ -22,7 +12,10 @@ def get_template(block_type=None):
 
     if block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
         block = eval(block_type + "()")
-        block.get_template()
+        template = block.get_template()
+
+        return template
+    
     else:
         print('wrong block type: ', block_type)
 
@@ -60,7 +53,9 @@ def show_content(block_type=None, block_id=None, year=None, month=None, day=None
                     for vv in decoder_file_string(v):
                         print(vv)
                 else:
-                    print(k, v)
+                    print(k + ":", v)
+
+        print("\n\n")
 
 
 def get_file_strings(*file_strings):
@@ -83,3 +78,15 @@ def submit(block_type=None, json_dict=None, document_id=None, action_id=None):
         write_action(json_dict, document_id)
     if block_type == 'D' or block_type == 'DOCUMENT':
         write_document(json_dict)
+
+
+def help_():
+    all_apis = [
+        "get_template(block_type)",
+        "show_relation_tree()",
+        "show_content(block_type=None, block_id=None, year=None, month=None, day=None)",
+        "get_file_strings(*file_strings)",
+        "submit(block_type=None, json_dict=None, document_id=None, action_id=None)"
+    ]
+    for api in all_apis:
+        print(api)
