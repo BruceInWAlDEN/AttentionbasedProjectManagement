@@ -33,6 +33,18 @@ import json
 import time
 
 
+def calculate_time(start_time_string, end_time_string):
+    """
+    return: minutes int
+    """
+    s = decode_time_string(start_time_string)
+    e = decode_time_string(end_time_string)
+    year, month, day, hour, minute, second = map(lambda x: int(e[x])-int(s[x]), range(6))
+    second_time = day*24*60*60 + hour*60*60 + minute*60 + second
+
+    return second_time // 60
+
+
 def get_time_string_now():
     time_p = time.localtime()
     time_string = 'year:{}||month:{}||day:{}||hour:{}||minute:{}||second:{}'.format(
@@ -52,8 +64,16 @@ def decode_time_string(time_string):
     day_index_s = time_string.index('day:') + 4
     day_index_e = time_string.index('||hour')
     day = time_string[day_index_s:day_index_e]
+    hour_index_s = time_string.index('hour:') + 5
+    hour_index_e = time_string.index('||minute')
+    hour = time_string[hour_index_s:hour_index_e]
+    minute_index_s = time_string.index('minute:') + 7
+    minute_index_e = time_string.index('||second')
+    minute = time_string[minute_index_s:minute_index_e]
+    second_index_s = time_string.index('second:') + 7
+    second = time_string[second_index_s:]
 
-    return year, month, day
+    return year, month, day, hour, minute, second
 
 
 def decoder_file_string(file_string):
@@ -94,7 +114,7 @@ class BasicBlock(object):
 
     def check_submit_format(self, json_dict):
         flag = True
-        if isinstance(json_dict, dict):
+        if isinstance(json_dict, dict) and len(json_dict.keys()) == len(self.__dict__.keys()):
             for key in self.__dict__.keys():
                 if key in json_dict.keys():
                     if 'score' in key:
@@ -210,17 +230,18 @@ class FileManager(object):
 def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
     all_id = []
     fm = FileManager()
-    if block_id is not None and block_id not in fm.FILE_META['delete_id']:
+    if block_id is not None and block_id in fm.FILE_META['all_id'] and block_id not in fm.FILE_META['delete_id']:
         re = fm.FILE_BLOCK_DATA[block_id]
         re['block_type'] = fm.FILE_META['submit_type'][block_id]
         re['block_id'] = block_id
         re['submit_time'] = fm.FILE_META['submit_time'][block_id]
+        re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
 
-        return [fm.FILE_BLOCK_DATA[block_id]]
+        return [re]
 
     if block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
         for check_id in fm.FILE_META['submit_type_id_statistic'][block_type]:
-            check_year, check_month, check_day = decode_time_string(fm.FILE_META['submit_time'][check_id])
+            check_year, check_month, check_day, _, _, _ = decode_time_string(fm.FILE_META['submit_time'][check_id])
             flag = 1
             if (not check_year == year) and year is not None:
                 flag = 0
@@ -238,6 +259,7 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
             re['block_type'] = fm.FILE_META['submit_type'][check_id]
             re['block_id'] = check_id
             re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
             all_json_dict.append(re)
 
         return all_json_dict
@@ -245,7 +267,7 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
     if block_type is None:
         for block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
             for check_id in fm.FILE_META['submit_type_id_statistic'][block_type]:
-                check_year, check_month, check_day = decode_time_string(fm.FILE_META['submit_time'][check_id])
+                check_year, check_month, check_day, _, _, _ = decode_time_string(fm.FILE_META['submit_time'][check_id])
                 flag = 1
                 if (not check_year == year) and year is not None:
                     flag = 0
@@ -263,6 +285,7 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
             re['block_type'] = fm.FILE_META['submit_type'][check_id]
             re['block_id'] = check_id
             re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
             all_json_dict.append(re)
 
         return all_json_dict
@@ -275,7 +298,7 @@ def overwrite_block(block_type, json_dict, block_id: str):
             block = eval(block_type + '()')
             if block.check_submit_format(json_dict):
                 fm.FILE_BLOCK_DATA[block_id] = json_dict
-                fm.FILE_META['submit_time'][block_id] = get_time_string_now()
+                fm.FILE_META['last_overwrite_time'][block_id] = get_time_string_now()
                 fm.renew_data()
             else:
                 print('wrong json dict format')
@@ -302,8 +325,6 @@ def write_record(json_dict=None, document_id=None, action_id=None):
             # add data
             temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
             fm.FILE_BLOCK_DATA[temp_id] = json_dict
-            fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
-            fm.FILE_META['submit_type'][temp_id] = "RECORD"
 
             # add relation
             fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -321,6 +342,9 @@ def write_record(json_dict=None, document_id=None, action_id=None):
             # renew statistic
             fm.FILE_META["submit_type_id_statistic"]['RECORD'].append(temp_id)
             fm.FILE_META['all_id'].append(temp_id)
+            fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
+            fm.FILE_META['submit_type'][temp_id] = "RECORD"
+            fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
 
             fm.renew_data()
 
@@ -341,8 +365,6 @@ def write_action(json_dict, document_id):
             # add data
             temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
             fm.FILE_BLOCK_DATA[temp_id] = json_dict
-            fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
-            fm.FILE_META['submit_type'][temp_id] = "ACTION"
 
             # add relation
             fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -359,6 +381,9 @@ def write_action(json_dict, document_id):
             # renew statistic
             fm.FILE_META["submit_type_id_statistic"]['ACTION'].append(temp_id)
             fm.FILE_META['all_id'].append(temp_id)
+            fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
+            fm.FILE_META['submit_type'][temp_id] = "ACTION"
+            fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
 
             fm.renew_data()
 
@@ -376,8 +401,6 @@ def write_document(json_dict):
         # add data
         temp_id = str(max([int(_) for _ in fm.FILE_META['all_id']]) + 1)
         fm.FILE_BLOCK_DATA[temp_id] = json_dict
-        fm.FILE_META["submit_time"][temp_id] = get_time_string_now()
-        fm.FILE_META['submit_type'][temp_id] = "DOCUMENT"
 
         # add relation
         fm.FILE_DATA_ID_LIST['id_list'].append(temp_id)
@@ -394,7 +417,9 @@ def write_document(json_dict):
         # renew statistic
         fm.FILE_META["submit_type_id_statistic"]['DOCUMENT'].append(temp_id)
         fm.FILE_META['all_id'].append(temp_id)
-
+        fm.FILE_META["submit_time"][temp_id] = get_time_string_now()
+        fm.FILE_META['submit_type'][temp_id] = "DOCUMENT"
+        fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
         fm.renew_data()
 
     else:
@@ -405,6 +430,7 @@ def delete_block(block_type, block_id: str):
     fm = FileManager()
     if block_id in fm.FILE_META['submit_type_id_statistic'][block_type] and block_id not in fm.FILE_META['delete_id']:
         fm.FILE_META['delete_id'].append(block_id)
+        fm.FILE_META['last_overwrite_time'][block_id] = get_time_string_now()
         fm.renew_data()
     else:
         print('block_id do not exist or already deleted')

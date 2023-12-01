@@ -1,27 +1,13 @@
 {
     "submit_type_id_statistic": {
-        "RECORD": [
-            "11",
-            "12",
-            "13",
-            "16",
-            "17"
-        ],
+        "RECORD": [],
         "DOCUMENT": [
-            "1",
-            "5",
-            "8",
-            "10",
-            "14"
+            "1"
         ],
         "ACTION": [
             "2",
             "3",
-            "4",
-            "6",
-            "7",
-            "9",
-            "15"
+            "4"
         ],
         "ROOT": [
             "0"
@@ -35,58 +21,25 @@
         "1",
         "2",
         "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17"
+        "4"
     ],
     "submit_time": {
         "0": "",
-        "1": "year:2023||month:11||day:22||hour:19||minute:1||second:1",
-        "2": "year:2023||month:11||day:22||hour:19||minute:6||second:22",
-        "3": "year:2023||month:11||day:22||hour:19||minute:11||second:2",
-        "4": "year:2023||month:11||day:22||hour:19||minute:12||second:44",
-        "5": "year:2023||month:11||day:23||hour:8||minute:30||second:42",
-        "6": "year:2023||month:11||day:23||hour:8||minute:32||second:17",
-        "7": "year:2023||month:11||day:23||hour:8||minute:33||second:0",
-        "8": "year:2023||month:11||day:23||hour:8||minute:36||second:51",
-        "9": "year:2023||month:11||day:23||hour:8||minute:40||second:14",
-        "10": "year:2023||month:11||day:23||hour:10||minute:0||second:18",
-        "11": "year:2023||month:11||day:23||hour:16||minute:6||second:8",
-        "12": "year:2023||month:11||day:23||hour:16||minute:51||second:47",
-        "13": "year:2023||month:11||day:24||hour:10||minute:26||second:26",
-        "14": "year:2023||month:11||day:24||hour:15||minute:41||second:1",
-        "15": "year:2023||month:11||day:24||hour:15||minute:53||second:36",
-        "16": "year:2023||month:11||day:24||hour:17||minute:15||second:34",
-        "17": "year:2023||month:11||day:24||hour:20||minute:0||second:37"
+        "1": "year:2023||month:12||day:1||hour:22||minute:27||second:48",
+        "2": "year:2023||month:12||day:1||hour:22||minute:29||second:3",
+        "3": "year:2023||month:12||day:1||hour:22||minute:30||second:21",
+        "4": "year:2023||month:12||day:1||hour:22||minute:31||second:41"
     },
     "submit_type": {
         "1": "DOCUMENT",
         "2": "ACTION",
         "3": "ACTION",
-        "4": "ACTION",
-        "5": "DOCUMENT",
-        "6": "ACTION",
-        "7": "ACTION",
-        "8": "DOCUMENT",
-        "9": "ACTION",
-        "10": "DOCUMENT",
-        "11": "RECORD",
-        "12": "RECORD",
-        "13": "RECORD",
-        "14": "DOCUMENT",
-        "15": "ACTION",
-        "16": "RECORD",
-        "17": "RECORD"
+        "4": "ACTION"
+    },
+    "last_overwrite_time": {
+        "1": "year:2023||month:12||day:1||hour:22||minute:27||second:48",
+        "2": "year:2023||month:12||day:1||hour:22||minute:29||second:3",
+        "3": "year:2023||month:12||day:1||hour:22||minute:30||second:21",
+        "4": "year:2023||month:12||day:1||hour:22||minute:31||second:41"
     }
 }
