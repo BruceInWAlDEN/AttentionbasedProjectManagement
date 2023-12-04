@@ -1,25 +1,7 @@
 {
     "0": {},
     "1": {
-        "doc_outline": "注意力管理系统 APM",
-        "doc_file": "||description-->对应文档在飞书||"
-    },
-    "2": {
-        "goal": "给注意力关系系统添加使用手册",
-        "methods": "以用户的角度给出使用手册",
-        "feedback": "statement but feeling",
-        "related_file": "||description-->init||"
-    },
-    "3": {
-        "goal": "给注意力管理系统添加文件恢复接口，能备份数据到指定路径，或从指定路径恢复数据",
-        "methods": "detailed",
-        "feedback": "statement but feeling",
-        "related_file": "||description-->对应文档在飞书个人账号||"
-    },
-    "4": {
-        "goal": "cli版本工具打包",
-        "methods": "对当前的cli版本的工具进行打包，设计logo，解决打包中出现的问题",
-        "feedback": "statement but feeling",
-        "related_file": "||description-->对应文档在飞书个人账号||"
+        "doc_outline": "注意力管理系统的改进",
+        "doc_file": "||description-->version 0.1 到 version 0.2||"
     }
 }

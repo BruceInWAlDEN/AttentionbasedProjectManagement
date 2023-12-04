@@ -117,13 +117,13 @@ class BasicBlock(object):
         if isinstance(json_dict, dict) and len(json_dict.keys()) == len(self.__dict__.keys()):
             for key in self.__dict__.keys():
                 if key in json_dict.keys():
-                    if 'score' in key:
-                        if json_dict[key] in [1, 2, 3, 4, 5]:
+                    if 'start_passion' == key or 'end_feeling' == key:
+                        if json_dict[key] in ['goog', 'bad', 'normal']:
                             pass
                         else:
-                            print('error info format: wrong score: , should be 1-5', json_dict[key])
+                            print('error info format: wrong key: {}, should be [goog, bad, normal]'.format(json_dict[key]))
                             flag = False
-                    elif 'time' in key:
+                    if 'time' in key:
                         if isinstance(key, str):
                             if time.strptime(json_dict[key], 'year:%Y||month:%m||day:%d||hour:%H||minute:%M||second:%S'):
                                 pass
@@ -133,17 +133,29 @@ class BasicBlock(object):
                         else:
                             print('error info format: wrong time')
                             flag = False
+                    if 'steps' == key:
+                        if isinstance(json_dict[key], list):
+                            for v in json_dict[key]:
+                                if isinstance(v, str):
+                                    pass
+                                else:
+                                    print('error info format: action step not string')
+                                    flag = False
+                        else:
+                            print('error info format: action steps not a list')
+                            flag = False
                     else:
                         if isinstance(json_dict[key], str):
                             pass
                         else:
                             print('error info format: value of -> {} <- not a str'.format(key))
+                            flag = False
 
                 else:
                     print('error info format: key missing: ', key)
                     flag = False
         else:
-            print('not a json_dict')
+            print('not a format json_dict')
             flag = False
 
         return flag
@@ -163,15 +175,10 @@ class DOCUMENT(BasicBlock):
 class ACTION(BasicBlock):
     def __init__(self):
         super().__init__()
-        self.goal = "a result"
-        self.methods = "detailed"
-        self.feedback = "statement but feeling"
-
-        self.related_file = get_file_string_list([
-            get_file_string('file_full_path', 'init'),
-            get_file_string('url', 'init'),
-            get_file_string('description', 'init'),
-        ])
+        self.goal = "a goal"
+        self.steps = [
+            'description // ' + get_file_string_list([get_file_string('file_full_path', 'init'), get_file_string('url', 'init'), get_file_string('description', 'init')]),
+            ]
 
 
 class RECORD(BasicBlock):
@@ -179,13 +186,10 @@ class RECORD(BasicBlock):
         super().__init__()
         self.start_time = get_time_string_now()
         self.end_time = get_time_string_now()
-        self.start_passion_score = 5
-        self.end_feeling_score = 5
-        self.attention_score = 5
-        self.passion_description = "feeling and reason"
-        self.feeling_description = "feeling and reason"
-        self.attention_description = "feeling and reason"
-        self.work_env_description = "objective"
+        self.start_passion = 'good'
+        self.end_feedback = 'good'
+        self.add_detail = "some description of feeling or things"
+        self.work_env = "some description of environment"
 
 
 def read_json(json_path: str) -> dict:
@@ -205,7 +209,7 @@ def save_json(dict_dataset: dict, name: str):
 every call of follow func, file should renew and show sign
 *init.json files give an example for each kind of file
 """
-MAIN_WORK_DIR = r'C:\Users\Bruce\Desktop\AttentionbasedProjectManagement\DATA'
+MAIN_WORK_DIR = 'DATA'
 FILE_DATA_RELATION_MATRIX = 'data_relation_matrix.json'
 FILE_DATA_ID_LIST = 'data_id_list.json'
 FILE_BLOCK_DATA = 'block_data.json'
@@ -224,7 +228,7 @@ class FileManager(object):
         save_json(self.FILE_DATA_ID_LIST, os.path.join(MAIN_WORK_DIR, FILE_DATA_ID_LIST))
         save_json(self.FILE_BLOCK_DATA, os.path.join(MAIN_WORK_DIR, FILE_BLOCK_DATA))
         save_json(self.FILE_META, os.path.join(MAIN_WORK_DIR, FILE_META))
-        print('data renew')
+        print('successfully submit !')
 
 
 def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
@@ -235,6 +239,7 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
         re['block_type'] = fm.FILE_META['submit_type'][block_id]
         re['block_id'] = block_id
         re['submit_time'] = fm.FILE_META['submit_time'][block_id]
+        re['block_state'] = fm.FILE_META['block_state'][block_id]
         re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
 
         return [re]
@@ -259,6 +264,7 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
             re['block_type'] = fm.FILE_META['submit_type'][check_id]
             re['block_id'] = check_id
             re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            re['block_state'] = fm.FILE_META['block_state'][block_id]
             re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
             all_json_dict.append(re)
 
@@ -285,13 +291,14 @@ def get_block(block_type=None, block_id=None, year=None, month=None, day=None):
             re['block_type'] = fm.FILE_META['submit_type'][check_id]
             re['block_id'] = check_id
             re['submit_time'] = fm.FILE_META['submit_time'][check_id]
+            re['block_state'] = fm.FILE_META['block_state'][block_id]
             re['last_overwrite_time'] = fm.FILE_META['last_overwrite_time'][block_id]
             all_json_dict.append(re)
 
         return all_json_dict
 
 
-def overwrite_block(block_type, json_dict, block_id: str):
+def overwrite_block(block_type, json_dict, block_id: str, state: str):
     fm = FileManager()
     if block_id in fm.FILE_META['all_id'] and block_id not in fm.FILE_META['delete_id']:
         if block_type in ['RECORD', 'ACTION', 'DOCUMENT']:
@@ -299,7 +306,11 @@ def overwrite_block(block_type, json_dict, block_id: str):
             if block.check_submit_format(json_dict):
                 fm.FILE_BLOCK_DATA[block_id] = json_dict
                 fm.FILE_META['last_overwrite_time'][block_id] = get_time_string_now()
-                fm.renew_data()
+                if state in ['on', 'off']:
+                    fm.FILE_META['block_state'][block_id] = state
+                    fm.renew_data()
+                else:
+                    print('wrong block state: ', state)
             else:
                 print('wrong json dict format')
         else:
@@ -345,11 +356,12 @@ def write_record(json_dict=None, document_id=None, action_id=None):
             fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
             fm.FILE_META['submit_type'][temp_id] = "RECORD"
             fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
+            fm.FILE_META["block_state"][temp_id] = 'on'
 
             fm.renew_data()
 
         else:
-            print('give a exist document_id or an action_id')
+            print('please give an exist document_id or an action_id')
     else:
         print('wrong record json dict format')
 
@@ -384,6 +396,7 @@ def write_action(json_dict, document_id):
             fm.FILE_META['submit_time'][temp_id] = get_time_string_now()
             fm.FILE_META['submit_type'][temp_id] = "ACTION"
             fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
+            fm.FILE_META["block_state"][temp_id] = 'on'
 
             fm.renew_data()
 
@@ -420,6 +433,8 @@ def write_document(json_dict):
         fm.FILE_META["submit_time"][temp_id] = get_time_string_now()
         fm.FILE_META['submit_type'][temp_id] = "DOCUMENT"
         fm.FILE_META["last_overwrite_time"][temp_id] = get_time_string_now()
+        fm.FILE_META["block_state"][temp_id] = 'on'
+
         fm.renew_data()
 
     else:
@@ -431,6 +446,7 @@ def delete_block(block_type, block_id: str):
     if block_id in fm.FILE_META['submit_type_id_statistic'][block_type] and block_id not in fm.FILE_META['delete_id']:
         fm.FILE_META['delete_id'].append(block_id)
         fm.FILE_META['last_overwrite_time'][block_id] = get_time_string_now()
+        fm.FILE_META["block_state"][block_id] = 'off'
         fm.renew_data()
     else:
         print('block_id do not exist or already deleted')
@@ -441,8 +457,8 @@ def delete_block(block_type, block_id: str):
 """
 
 
-def _reset_system():
-    out = input('if you want to reset the whole system ? you can input: $i$really$want$to$do$that$')
+def reset_sys():
+    out = input('if you want to reset the whole system? \nyou can input: $i$really$want$to$do$that$ to reset sys\n -> ')
     if out == '$i$really$want$to$do$that$':
         r = read_json(os.path.join(MAIN_WORK_DIR, FILE_DATA_RELATION_MATRIX.replace('.json', '_init.json')))
         save_json(r, os.path.join(MAIN_WORK_DIR, FILE_DATA_RELATION_MATRIX))

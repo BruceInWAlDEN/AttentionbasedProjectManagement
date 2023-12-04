@@ -18,5 +18,6 @@
     ],
     "submit_time": {"0": ""},
     "submit_type": {},
-    "last_overwrite_time": {}
+    "last_overwrite_time": {},
+    "block_state": {}
 }

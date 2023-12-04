@@ -205,7 +205,7 @@ def save_json(dict_dataset: dict, name: str):
 every call of follow func, file should renew and show sign
 *init.json files give an example for each kind of file
 """
-MAIN_WORK_DIR = r'C:\Users\Bruce\Desktop\AttentionbasedProjectManagement\DATA'
+MAIN_WORK_DIR = 'DATA'
 FILE_DATA_RELATION_MATRIX = 'data_relation_matrix.json'
 FILE_DATA_ID_LIST = 'data_id_list.json'
 FILE_BLOCK_DATA = 'block_data.json'
