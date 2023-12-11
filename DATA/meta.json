@@ -1,32 +1,9 @@
 {
-    "submit_type_id_statistic": {
-        "RECORD": [],
-        "DOCUMENT": [
-            "1"
-        ],
-        "ACTION": [],
-        "ROOT": [
-            "0"
-        ]
-    },
-    "delete_id": [
-        "0"
-    ],
-    "all_id": [
-        "0",
-        "1"
-    ],
-    "submit_time": {
-        "0": "",
-        "1": "year:2023||month:12||day:4||hour:16||minute:25||second:25"
-    },
-    "submit_type": {
-        "1": "DOCUMENT"
-    },
-    "last_overwrite_time": {
-        "1": "year:2023||month:12||day:4||hour:16||minute:25||second:25"
-    },
-    "block_state": {
-        "1": "on"
-    }
+    "adjacency_matrix": [],
+    "name_list": [],
+    "type_list": [],
+    "submit_time_list": [],
+    "last_modify_time_list": [],
+    "version_list": [],
+    "show_flag_list": []
 }
