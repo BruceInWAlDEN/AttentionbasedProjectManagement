@@ -48,7 +48,7 @@ def get_time_string_now():
     return time_string
 
 
-MAIN_WORK_DIR = 'DATA'
+MAIN_WORK_DIR = r'C:\BruceMySpace\_data\APM_backup_version_0.3\DATA'
 META = 'meta.json'
 DATA = 'data.json'
 

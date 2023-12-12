@@ -206,7 +206,7 @@ def submit():
         fm = FileManager()
         name = str(max([int(_) for _ in fm.META['name_list']] + [0]) + 1)
         title = get_description_type('title', "a program title")
-        info = get_list_description_type('info', 'some information')
+        info = get_list_description_type('info', ['some information'])
         add(
             data_dict={"title": title, "info": info},
             name=name,
