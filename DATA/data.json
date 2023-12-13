@@ -1,1 +1,111 @@
-{}
+{
+    "1": {
+        "title": "基于便携显微镜的计算机辅助宫颈癌筛查",
+        "info": [
+            "当前的科研项目 文档在飞书实验室账号上"
+        ]
+    },
+    "2": {
+        "goal": "写好并测试CLAM对比方法的代码，并开始执行训练",
+        "steps": []
+    },
+    "3": {
+        "title": "健身计划",
+        "info": [
+            "一些健身记录"
+        ]
+    },
+    "4": {
+        "goal": "农历新年前的健身记录",
+        "steps": []
+    },
+    "5": {
+        "start_time": "year:2023||month:12||day:11||hour:19||minute:29||second:57",
+        "end_time": "year:2023||month:12||day:11||hour:20||minute:30||second:4",
+        "start_passion": "good",
+        "end_feedback": "good",
+        "environment": "汉合健身房",
+        "add_info": "状态还行，不是很兴奋"
+    },
+    "6": {
+        "goal": "测试在干净数据集上细调的当前最优模型在内外测试集上的模型性能",
+        "steps": [
+            "ROC曲线和各类准确率"
+        ]
+    },
+    "7": {
+        "start_time": "year:2023||month:12||day:12||hour:8||minute:58||second:25",
+        "end_time": "year:2023||month:12||day:12||hour:9||minute:50||second:26",
+        "start_passion": "normal",
+        "end_feedback": "normal",
+        "environment": "实验室",
+        "add_info": "早饭倒是吃了，感觉血压有点高，昨天晚上中途醒了两三次，实验结果没有那么理想"
+    },
+    "8": {
+        "title": "一种监督高效的数据集分解方法",
+        "info": [
+            "文档在飞书个人账号上 DatasetDecomposition",
+            "我预感小显微镜的项目周期可能比我想的要长，作为作为第二手准备，当前项目可以并行"
+        ]
+    },
+    "9": {
+        "goal": "在STL10上预训练一个模型",
+        "steps": [
+            "在笔记本上用CPU训练"
+        ]
+    },
+    "10": {
+        "goal": "train_loop的完整代码写完并测试",
+        "steps": [
+            "使用函数式编程风格"
+        ]
+    },
+    "11": {
+        "start_time": "year:2023||month:12||day:12||hour:10||minute:18||second:7",
+        "end_time": "year:2023||month:12||day:12||hour:10||minute:38||second:7",
+        "start_passion": "normal",
+        "end_feedback": "good",
+        "environment": "实验室",
+        "add_info": "重新检查了一遍程序代码，开始执行程序"
+    },
+    "12": {
+        "goal": "重写数据结构和管理api",
+        "steps": [
+            "为每张图片设置唯一的ID",
+            "方便的通过ID来组成数据中心",
+            "方便的通过ID来找到具体的图片",
+            "方便的通过ID来组织对应的图像特征",
+            "方便的查看没张图原始类别和训练过程中赋予的中心类别"
+        ]
+    },
+    "13": {
+        "start_time": "year:2023||month:12||day:12||hour:10||minute:40||second:7",
+        "end_time": "year:2023||month:12||day:12||hour:11||minute:28||second:15",
+        "start_passion": "normal",
+        "end_feedback": "normal",
+        "environment": "实验室",
+        "add_info": "关于数据的组织，最重要的目标之一就是简洁简洁再简洁"
+    },
+    "14": {
+        "start_time": "year:2023||month:12||day:12||hour:11||minute:28||second:13",
+        "end_time": "year:2023||month:12||day:12||hour:11||minute:58||second:15",
+        "start_passion": "normal",
+        "end_feedback": "normal",
+        "environment": "实验室",
+        "add_info": "好的设计应该是简单且好用的"
+    },
+    "15": {
+        "start_time": "year:2023||month:12||day:12||hour:14||minute:20||second:16",
+        "end_time": "year:2023||month:12||day:12||hour:15||minute:34||second:20",
+        "start_passion": "good",
+        "end_feedback": "good",
+        "environment": "实验室",
+        "add_info": "下午刚开始工作，状态还行"
+    },
+    "16": {
+        "goal": "项目部署到实验室主机上，增加GPU支持",
+        "steps": [
+            "支持指定GPU单卡训练推理"
+        ]
+    }
+}
